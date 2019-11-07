@@ -119,14 +119,12 @@ app.post('/getUser', function(req,res){
     });
 });
 
-
 // UPDATE A USER
 ////////////////
 app.patch('/users/:id', function(req, res){
     const id = req.params.id;
     const hash = bcrypt.hashSync(req.body.password);
     User.findById(id, function(err, user){
-        // CHECK THE LINE BELOW: Should 'user.id' be 'user_id'? Is "userId" ok?
         if(user['user.id'] == req.body.userID){
             const newUser = {
                 username: req.body.username,
@@ -141,9 +139,6 @@ app.patch('/users/:id', function(req, res){
         }
     }).catch(err => res.send('Sorry, cannot find user with that id'));
 });
-
-// DELETE A USER
-////////////////
 
 // CREATE A NEW ITEM
 //////////////////////
@@ -232,7 +227,6 @@ app.patch('/editItem/:id', function(req,res){
 //////////////////////
 app.delete('/deleteItem/:id', function(req, res){
     const id = req.params.id;
-    // console.log(id);
     Item.findById(id, function(err, item){
         if (err) {
             res.send('cannot find image to delete from mongo');
@@ -261,7 +255,6 @@ app.delete('/deleteItem/:id', function(req, res){
 // BUY AN ITEM
 //////////////////////
 app.get('/getItem/:id', function(req, res){
-    // res.send('hello from the single item route');
     const id = req.params.id;
     Item.findById(id, function(err, item){
         res.send(item);
